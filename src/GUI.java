@@ -10,6 +10,9 @@ public class GUI extends JFrame
      *
      */
     private static final long serialVersionUID = 1L;
+
+    Date startDate = new Date();
+
     int space = 5;
     public int mousex = -100;
     public int mousey = -100;
@@ -203,13 +206,18 @@ public class GUI extends JFrame
         {
             int tempx = insideBoxX();
             int tempy = insideBoxY();
-            if(tempx!= -1 && tempy != -1)
+            if(tempx!= -1 && tempy != -1 && gameover == false)
             {
                 System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
                 clicked[tempx][tempy] = true;
                 if(neighbours[tempx][tempy] == 0)
                 {
                     empty_surrond_iterator(tempx, tempy);
+                }
+                if(neighbours[tempx][tempy] == 9)
+                {
+                    gameover = true;
+                    show_bombs();
                 }   
             }
             System.out.println("aray mouse tou click bhi karraha hai");
@@ -298,6 +306,21 @@ public class GUI extends JFrame
                
             }
             System.out.println("");
+        }
+    }
+    public void show_bombs()
+    {
+        
+        for (int i = 0; i < 16; i++)
+        {
+            for(int j = 0; j < 9; j++)
+            {
+               if(neighbours[i][j] == 9)
+               {
+                   clicked[i][j] = true;
+               }
+               
+            }
         }
     }
     public void bomb_surrond(int i , int j)
