@@ -6,9 +6,18 @@ import java.awt.event.*;
 
 public class GUI extends JFrame 
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     int space = 5;
     public int mousex = -100;
     public int mousey = -100;
+
+    public int emojix = 605;
+    public int emojiy = 5;
+    boolean gameover = false;
+
     
     Queue <Integer> queue_i = new LinkedList<>();
     Queue <Integer> queue_j = new LinkedList<>();
@@ -55,7 +64,12 @@ public class GUI extends JFrame
 
     public class Board extends JPanel
     {
-        public void paintComponent (Graphics gg)
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        public void paintComponent(Graphics gg)
         {
             gg.setColor(Color.DARK_GRAY);
             gg.fillRect(0, 0, 1280, 800);
@@ -136,6 +150,29 @@ public class GUI extends JFrame
                     }
 
                 }
+            }
+
+            gg.setColor(Color.yellow);
+            gg.fillOval(emojix, emojiy, 70, 70);
+            
+            gg.setColor(Color.BLACK);
+            gg.fillOval(emojix + 20, emojiy + 20, 10, 10);
+            gg.fillOval(emojix + 40, emojiy + 20, 10, 10);
+            if(gameover == false)
+            {
+                gg.fillRect(emojix + 22, emojiy + 55, 25, 5);
+                gg.fillRect(emojix + 17, emojiy + 50, 5, 5);
+                gg.fillRect(emojix + 47, emojiy + 50, 5, 5);
+                gg.fillRect(emojix + 12, emojiy + 35, 5, 15);
+                gg.fillRect(emojix + 52, emojiy + 35, 5, 15);
+                
+                // gg.fillRect(emojix + 5, emojiy + 35, 5, 5);
+                // gg.fillRect(emojix + 60, emojiy + 35, 5, 5);
+            }
+            else
+            {
+                gg.fillRect(emojix + 22, emojiy + 55, 25, 5);
+
             }
 
         }
