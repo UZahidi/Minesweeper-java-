@@ -21,6 +21,12 @@ public class GUI extends JFrame
     public int emojiy = 5;
     boolean gameover = false;
 
+    public int timex = 1100;
+    public int timey = 5;
+    public int sec = 0;
+
+    
+
     
     Queue <Integer> queue_i = new LinkedList<>();
     Queue <Integer> queue_j = new LinkedList<>();
@@ -154,7 +160,7 @@ public class GUI extends JFrame
 
                 }
             }
-
+            //Emoji printing
             gg.setColor(Color.yellow);
             gg.fillOval(emojix, emojiy, 70, 70);
             
@@ -178,6 +184,32 @@ public class GUI extends JFrame
 
             }
 
+
+            //Timer Box Printing
+            gg.setColor(Color.black);
+            gg.fillRect(timex, timey, 140, 70);
+            sec = (int)((new Date().getTime() - startDate.getTime()) / 1000);
+            if(sec > 999)
+            {
+                sec = 999;
+            }
+           // System.out.println(sec);
+            gg.setColor(Color.white);
+            gg.setFont(new Font("Tahoma", Font.PLAIN, 80));
+            if( sec < 10)
+            {
+                gg.drawString("00"+Integer.toString(sec), timex, timey+65);
+            }
+            else if( sec < 100)
+            {
+                gg.drawString("0"+Integer.toString(sec), timex, timey+65);
+            }
+            else
+            {
+                gg.drawString(Integer.toString(sec), timex, timey+65);
+
+            }
+            
         }
     }
     public class Move implements MouseMotionListener 
