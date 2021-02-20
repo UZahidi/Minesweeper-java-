@@ -1,7 +1,7 @@
 import javax.swing. *;
 import java.util. *;
 import java.awt.*;  
-import java.awt.event.*; 
+import java.awt.event.*;
 
 
 public class GUI extends JFrame 
@@ -19,11 +19,21 @@ public class GUI extends JFrame
 
     public int emojix = 605;
     public int emojiy = 5;
+    public int emoji_center_x = emojix + 35 + 7;
+    public int emoji_center_y = emojiy + 35 + 30;
+
+    public int flagx = 0;
+    public int flagy = 0;
+
+
+
     boolean gameover = false;
+    boolean gamewon = false;
 
     public int timex = 1100;
     public int timey = 5;
     public int sec = 0;
+    public int sec1 = 0;    //Total time
 
     
 
@@ -101,7 +111,7 @@ public class GUI extends JFrame
                             gg.setColor(Color.RED);
                         }
                     }
-                    if((mousex >= space + i * 80) && (mousex <space + i * 80 + 80-2*space) && (mousey >=space + j * 80 + 80+26) && (mousey <  j * 80 + 80 + 26 +80-2*space))
+                    if((gameover == false) && (mousex >= space + i * 80) && (mousex <space + i * 80 + 80-2*space) && (mousey >=space + j * 80 + 80+26) && (mousey <  j * 80 + 80 + 26 +80-2*space))
                     {
                       gg.setColor(Color.lightGray);  
                     }
@@ -158,6 +168,21 @@ public class GUI extends JFrame
                         
                     }
 
+                    if(flag[i][j] == true)
+                    {
+                        flagx = i*80;
+                        flagy = j*80+80;
+                        gg.setColor(Color.BLACK);
+                        gg.fillRect(flagx + 32, flagy + 15, 5, 40);
+                        gg.fillRect(flagx + 20, flagy + 50, 30, 10);
+                        gg.setColor(Color.red);
+                        gg.fillRect(flagx + 16, flagy + 15, 20, 15);
+                        gg.setColor(Color.BLACK);
+                        gg.drawRect(flagx + 16, flagy + 15, 20, 15);
+                        gg.drawRect(flagx + 17, flagy + 16, 18, 13);
+
+                    }
+
                 }
             }
             //Emoji printing
@@ -189,27 +214,65 @@ public class GUI extends JFrame
             gg.setColor(Color.black);
             gg.fillRect(timex, timey, 140, 70);
             sec = (int)((new Date().getTime() - startDate.getTime()) / 1000);
-            if(sec > 999)
+            if(gameover == false && gamewon == false)
             {
-                sec = 999;
-            }
-           // System.out.println(sec);
-            gg.setColor(Color.white);
-            gg.setFont(new Font("Tahoma", Font.PLAIN, 80));
-            if( sec < 10)
-            {
-                gg.drawString("00"+Integer.toString(sec), timex, timey+65);
-            }
-            else if( sec < 100)
-            {
-                gg.drawString("0"+Integer.toString(sec), timex, timey+65);
+                sec1 = sec;
+                if(sec > 999)
+                {
+                    sec = 999;
+                }
+            // System.out.println(sec);
+                gg.setColor(Color.white);
+                gg.setFont(new Font("Tahoma", Font.PLAIN, 80));
+                if( sec < 10)
+                {
+                    gg.drawString("00"+Integer.toString(sec), timex, timey+65);
+                }
+                else if( sec < 100)
+                {
+                    gg.drawString("0"+Integer.toString(sec), timex, timey+65);
+                }
+                else
+                {
+                    gg.drawString(Integer.toString(sec), timex, timey+65);
+
+                }
+
             }
             else
             {
-                gg.drawString(Integer.toString(sec), timex, timey+65);
+                if(sec1 > 999)
+                {
+                    sec1 = 999;
+                }
+            // System.out.println(sec);
+                gg.setColor(Color.white);
+                gg.setFont(new Font("Tahoma", Font.PLAIN, 80));
+                if( sec1 < 10)
+                {
+                    gg.drawString("00"+Integer.toString(sec1), timex, timey+65);
+                }
+                else if( sec1 < 100)
+                {
+                    gg.drawString("0"+Integer.toString(sec1), timex, timey+65);
+                }
+                else
+                {
+                    gg.drawString(Integer.toString(sec1), timex, timey+65);
+
+                }
 
             }
             
+            //Flag Printing
+            // gg.setColor(Color.BLACK);
+            // gg.fillRect(flagx + 32, flagy + 15, 5, 40);
+            // gg.fillRect(flagx + 20, flagy + 50, 30, 10);
+            // gg.setColor(Color.red);
+            // gg.fillRect(flagx + 16, flagy + 15, 20, 15);
+            // gg.setColor(Color.BLACK);
+            // gg.drawRect(flagx + 16, flagy + 15, 20, 15);
+            // gg.drawRect(flagx + 17, flagy + 16, 18, 13);
         }
     }
     public class Move implements MouseMotionListener 
@@ -236,23 +299,27 @@ public class GUI extends JFrame
         @Override
         public void mouseClicked(MouseEvent e)
         {
-            int tempx = insideBoxX();
-            int tempy = insideBoxY();
-            if(tempx!= -1 && tempy != -1 && gameover == false)
-            {
-                System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
-                clicked[tempx][tempy] = true;
-                if(neighbours[tempx][tempy] == 0)
-                {
-                    empty_surrond_iterator(tempx, tempy);
-                }
-                if(neighbours[tempx][tempy] == 9)
-                {
-                    gameover = true;
-                    show_bombs();
-                }   
-            }
-            System.out.println("aray mouse tou click bhi karraha hai");
+            // int tempx = insideBoxX();
+            // int tempy = insideBoxY();
+            // if(tempx!= -1 && tempy != -1 && gameover == false)
+            // {
+            //     System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
+            //     clicked[tempx][tempy] = true;
+            //     if(neighbours[tempx][tempy] == 0)
+            //     {
+            //         empty_surrond_iterator(tempx, tempy);
+            //     }
+            //     if(neighbours[tempx][tempy] == 9)
+            //     {
+            //         gameover = true;
+            //         show_bombs();
+            //     }   
+            // }
+            // System.out.println("aray mouse tou click bhi karraha hai");
+            // if(insideEmoji())
+            // {
+            //     reset();
+            // }
             
         }
 
@@ -270,8 +337,56 @@ public class GUI extends JFrame
 
         
         @Override
-        public void mousePressed(MouseEvent arg0)
+        public void mousePressed(MouseEvent e)
         {
+            if(SwingUtilities.isLeftMouseButton(e))
+            {
+                int tempx = insideBoxX();
+                int tempy = insideBoxY();
+                if(tempx!= -1 && tempy != -1 && gameover == false && flag[tempx][tempy] == false)
+                {
+                    System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
+                    clicked[tempx][tempy] = true;
+                    if(neighbours[tempx][tempy] == 0)
+                    {
+                        empty_surrond_iterator(tempx, tempy);
+                    }
+                    if(neighbours[tempx][tempy] == 9)
+                    {
+                        gameover = true;
+                        show_bombs();
+                    }   
+                }
+                System.out.println("aray mouse tou click bhi karraha hai");
+                if(insideEmoji())
+                {
+                    reset();
+                }
+            }
+            else if(SwingUtilities.isRightMouseButton(e))
+            {
+                int tempx = insideBoxX();
+                int tempy = insideBoxY();
+                if(tempx!= -1 && tempy != -1 && gameover == false)
+                {
+                    System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
+                    if(clicked[tempx][tempy] == false)
+                    {
+                        if(flag[tempx][tempy] == true )
+                        {
+                            flag[tempx][tempy] = false;
+                            System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = false");
+                    
+                        }
+                        else
+                        {
+                            flag[tempx][tempy] = true;
+                            System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = true");
+                        }
+                    }
+                       
+                }
+            }
             
         }
 
@@ -282,6 +397,21 @@ public class GUI extends JFrame
         }
     
     
+    }
+
+    public boolean insideEmoji()
+    {
+        double dist = (Math.sqrt(Math.pow((mousex-emoji_center_x), 2) + Math.pow((mousey-emoji_center_y), 2) ));
+        System.out.println("distance = " + dist);
+        System.out.println("(" + mousex + ","+ mousey + ")");
+        
+        if(dist <= 35)
+        {
+            //System.out.println("distance = " + dist);
+            return(true);
+        }
+
+        return(false);
     }
 
     public int insideBoxX()
@@ -501,6 +631,58 @@ public class GUI extends JFrame
                 queue_j.add(j+1);
             }
         }
+    }
+
+    public void reset()
+    {
+        startDate = new Date();
+        for (int i = 0; i < 16; i++)
+        {
+            for(int j = 0; j < 9; j++)
+            {
+                if(rand.nextInt(100)<20)
+                {
+                    mines[i][j] = true;
+                }
+                else
+                {
+                    mines[i][j] = false;
+                }
+                clicked[i][j] = false;
+                neighbours[i][j] = 0;
+                flag[i][j] = false;
+            }
+        }
+        populate_neighbours();
+        gameover = false;
+        gamewon = false;
+
+
+    }
+
+    public boolean gamestop()
+    {
+        if(gameover == true)
+        {
+            return(true);
+        }
+        else
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if(neighbours[i][j] != 9 && clicked[i][j] == false)
+                    {
+                        return(false);
+                    }
+                }
+            }
+            gamewon = true;
+            return(true);
+            
+        }
+
     }
     
     
