@@ -369,7 +369,7 @@ public class GUI extends JFrame
                 int tempy = insideBoxY();
                 if(tempx!= -1 && tempy != -1 && gameover == false && flag[tempx][tempy] == false)
                 {
-                    System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
+                   // System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
                     clicked[tempx][tempy] = true;
                     if(neighbours[tempx][tempy] == 0)
                     {
@@ -381,7 +381,7 @@ public class GUI extends JFrame
                         show_bombs();
                     }   
                 }
-                System.out.println("aray mouse tou click bhi karraha hai");
+              //  System.out.println("aray mouse tou click bhi karraha hai");
                 if(insideEmoji())
                 {
                     reset();
@@ -393,19 +393,19 @@ public class GUI extends JFrame
                 int tempy = insideBoxY();
                 if(tempx!= -1 && tempy != -1 && gameover == false)
                 {
-                    System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
+                   // System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "with neighbours = " + neighbours[tempx][tempy]);
                     if(clicked[tempx][tempy] == false)
                     {
                         if(flag[tempx][tempy] == true )
                         {
                             flag[tempx][tempy] = false;
-                            System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = false");
+                           // System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = false");
                     
                         }
                         else
                         {
                             flag[tempx][tempy] = true;
-                            System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = true");
+                          //  System.out.println("Mouse is in the box (" + tempx + "," + tempy  + ")" + "flag = true");
                         }
                     }
                        
@@ -426,8 +426,8 @@ public class GUI extends JFrame
     public boolean insideEmoji()
     {
         double dist = (Math.sqrt(Math.pow((mousex-emoji_center_x), 2) + Math.pow((mousey-emoji_center_y), 2) ));
-        System.out.println("distance = " + dist);
-        System.out.println("(" + mousex + ","+ mousey + ")");
+        //System.out.println("distance = " + dist);
+        //System.out.println("(" + mousex + ","+ mousey + ")");
         
         if(dist <= 35)
         {
@@ -484,15 +484,15 @@ public class GUI extends JFrame
         }
 
 
-        for (int i = 0; i < 9; i++)
-        {
-            for(int j = 0; j < 16; j++)
-            {
-                System.out.print(neighbours[j][i]);
+        // for (int i = 0; i < 9; i++)
+        // {
+        //     for(int j = 0; j < 16; j++)
+        //     {
+        //         System.out.print(neighbours[j][i]);
                
-            }
-            System.out.println("");
-        }
+        //     }
+        //     System.out.println("");
+        // }
     }
     public void show_bombs()
     {
@@ -555,13 +555,13 @@ public class GUI extends JFrame
     public void empty_surrond_iterator(int i , int j)
     {
         
-        System.out.println(i + " " + j);
+      //  System.out.println(i + " " + j);
         empty_surrond(i, j);
         while(!queue_i.isEmpty() && !queue_j.isEmpty())
         {
             i = queue_i.remove();
             j = queue_j.remove();
-            System.out.println(i + " " + j);
+       //     System.out.println(i + " " + j);
             empty_surrond(i, j);
         }
     }

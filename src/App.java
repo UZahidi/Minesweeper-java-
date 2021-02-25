@@ -11,17 +11,17 @@ public class App implements Runnable {
         while(true)
         {
             gui.repaint();
-            if(gui.gamestop())
-            {
-                if(gui.gameover == true)
-                {
-                    //System.out.println("GameOver, You Lost");
-                }
-                else if(gui.gamewon == true)
-                {
-                    //System.out.println("Congratulations, You won");
-                }
-            }
+            // if(gui.gamestop())
+            // {
+            //     if(gui.gameover == true)
+            //     {
+            //         //System.out.println("GameOver, You Lost");
+            //     }
+            //     else if(gui.gamewon == true)
+            //     {
+            //         //System.out.println("Congratulations, You won");
+            //     }
+            // }
         }
     }
 }
