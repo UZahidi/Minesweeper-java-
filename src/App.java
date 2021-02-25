@@ -15,11 +15,11 @@ public class App implements Runnable {
             {
                 if(gui.gameover == true)
                 {
-                    System.out.println("GameOver, You Lost");
+                    //System.out.println("GameOver, You Lost");
                 }
                 else if(gui.gamewon == true)
                 {
-                    System.out.println("Congratulations, You won");
+                    //System.out.println("Congratulations, You won");
                 }
             }
         }

@@ -22,6 +22,9 @@ public class GUI extends JFrame
     public int emoji_center_x = emojix + 35 + 7;
     public int emoji_center_y = emojiy + 35 + 30;
 
+    public int victory_msg_x = 100;
+    public int victory_msg_y = 65;
+    
     public int flagx = 0;
     public int flagy = 0;
 
@@ -263,6 +266,27 @@ public class GUI extends JFrame
                 }
 
             }
+
+
+            //Victory Text Printing.
+            if(gamewon == true)
+            {
+                gg.setColor(Color.GREEN);
+                gg.setFont(new Font("Tahoma", Font.PLAIN, 80));
+                gg.drawString("You Won!", victory_msg_x, victory_msg_y);
+                
+            }
+            else if(gameover == true)
+            {
+                gg.setColor(Color.RED);
+                
+
+                gg.setFont(new Font("Tahoma", Font.PLAIN, 70));
+                gg.drawString("You Lost :') ", victory_msg_x, victory_msg_y);
+               // System.out.println("GameOver, You Lost");
+            }
+
+
             
             //Flag Printing
             // gg.setColor(Color.BLACK);
