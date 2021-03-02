@@ -267,7 +267,7 @@ public class GUI extends JFrame
 
             }
 
-
+            gamestop();
             //Victory Text Printing.
             if(gamewon == true)
             {
